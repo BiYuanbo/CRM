@@ -119,6 +119,8 @@ for (int i = 0; i<dvList.size();i++){
                     }, 100);
                 });
 
+		//页面加载完毕后，展现该交易关联的备注信息列表
+		showRemarkList();
 
 		//页面加载完毕后，展现交易列表
 		showHistoryList();
@@ -146,6 +148,10 @@ for (int i = 0; i<dvList.size();i++){
 			}
 		})
 	});
+
+	function showRemarkList(){
+
+	}
 
 	//展现交易历史列表
 	function showHistoryList(){
