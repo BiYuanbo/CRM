@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/bean/DicType.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/bean/DicValue.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/dao/DicTypeDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/dao/DicTypeDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/dao/DicValueDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/dao/DicValueDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/service/DicService.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/setting/service/impl/DicServiceImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/Clue.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/ClueActivityRelation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/ClueRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/Contacts.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/ContactsActivityRelation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/ContactsRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/Customer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/CustomerRemark.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/bean/Tran.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueActivityRelationDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueActivityRelationDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ClueRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsActivityRelationDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsActivityRelationDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/ContactsRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/CustomerDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/CustomerDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/CustomerRemarkDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/CustomerRemarkDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/TranDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/TranDao.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/TranHistoryDao.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/WorkSpaceForCrm/src/main/java/com/bjpowernode/workbench/dao/TranHistoryDao.xml" charset="UTF-8" />
+  </component>
+</project>
