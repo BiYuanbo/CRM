@@ -97,6 +97,13 @@ for (int i = 0; i<dvList.size();i++){
 			$(this).children("span").css("color","#E6E6E6");
 		});
 
+		$("#remarkBody").on("mouseover",".remarkDiv",function(){
+			$(this).children("div").children("div").show();
+		})
+		$("#remarkBody").on("mouseout",".remarkDiv",function(){
+			$(this).children("div").children("div").hide();
+		})
+
 
 		//阶段提示框
 		$(".mystage").popover({
@@ -121,6 +128,69 @@ for (int i = 0; i<dvList.size();i++){
 
 		//页面加载完毕后，展现该交易关联的备注信息列表
 		showRemarkList();
+
+		//为更新备注信息按钮绑定事件
+		$("#updateRemarkBtn").click(function (){
+			var id = $("#remarkId").val()
+			$.ajax({
+				url:"workbench/tran/updateRemark.do",
+				data: {
+					"id":id,
+					"noteContent":$.trim($("#noteContent").val())
+				},
+				type: "post",
+				dataType: "json",
+				success: function (data) {
+					if (data.success) {
+						$("#e"+id).html(data.tRemark.noteContent)
+						$("#s"+id).html(data.tRemark.editTime+'由'+data.tRemark.editBy)
+
+						$("#editRemarkModal").modal("hide")
+					} else {
+						alert("修改备注失败")
+					}
+				}
+			})
+		})
+
+		//添加备注信息
+		$("#saveRemark").click(function (){
+			$.ajax({
+				url: "workbench/tran/saveRemark.do",
+				data: {
+					noteContent:$.trim($("#remark").val()),
+					activityId: "${t.id}"
+				},
+				type: "post",
+				dataType: "json",
+				success: function (data) {
+					if (data.success) {
+						$("#remark").val("");
+
+						var html = "";
+
+						html += '<div id="'+data.tRemark.id+'" class="remarkDiv" style="height: 60px;">';
+						html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
+						html += '<div style="position: relative; top: -40px; left: 40px;" >';
+						html += '<h5 id="e'+data.tRemark.id+'">'+data.tRemark.noteContent+'</h5>';
+						html += '<font color="gray">交易</font> <font color="gray">-</font> <b>${t.customerId}-${t.name}</b> <small style="color: gray;" id="s'+data.tRemark.id+'">'+(data.tRemark.editFlag==0?data.tRemark.createTime:data.tRemark.editTime)+' 由'+(data.tRemark.editFlag==0?data.tRemark.createBy:data.tRemark.editBy)+'</small>';
+						html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
+						html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+data.tRemark.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
+						html += '&nbsp;&nbsp;&nbsp;&nbsp;';
+						html += '<a class="myHref" href="javascript:void(0);" onclick="deleteRemark(\''+data.tRemark.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: red;"></span></a>';
+						html += '</div>';
+						html += '</div>';
+						html += '</div>';
+
+						$("#remarkDiv").before(html);
+					} else {
+						alert("备注添加失败")
+					}
+				}
+			})
+		})
+
+		/*=============================================*/
 
 		//页面加载完毕后，展现交易列表
 		showHistoryList();
@@ -149,9 +219,74 @@ for (int i = 0; i<dvList.size();i++){
 		})
 	});
 
+	//展现备注列表
 	function showRemarkList(){
+		$.ajax({
+			url: "workbench/tran/getRemarkListByTid.do",
+			data: {
+				"tranId":"${t.id}"
+			},
+			type: "get",
+			dataType: "json",
+			success: function (data) {
+				var html = "";
 
+				$.each(data,function (i,n){
+					html += '<div id="'+n.id+'" class="remarkDiv" style="height: 60px;">';
+					html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
+					html += '<div style="position: relative; top: -40px; left: 40px;" >';
+					html += '<h5 id="e'+n.id+'">'+n.noteContent+'</h5>';
+					html += '<font color="gray">交易</font> <font color="gray">-</font> <b>${t.customerId}-${t.name}</b> <small style="color: gray;" id="s'+n.id+'">'+(n.editFlag==0?n.createTime:n.editTime)+' 由'+(n.editFlag==0?n.createBy:n.editBy)+'</small>';
+					html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
+					html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+n.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
+					html += '&nbsp;&nbsp;&nbsp;&nbsp;';
+					html += '<a class="myHref" href="javascript:void(0);" onclick="deleteRemark(\''+n.id+'\')"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: red;"></span></a>';
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+				})
+
+				$("#remarkDiv").before(html);
+			}
+		})
 	}
+
+	//删除线索备注列表
+	function deleteRemark(id){
+		if (confirm("确定删除这条备注吗？")){
+			$.ajax({
+				url:"workbench/tran/deleteRemark.do",
+				data:{
+					"id":id
+				},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					/*data
+                    * {"success":ture/false}*/
+					if (data.success){
+						//删除备注成功
+						$("#"+id).remove();
+					}else {
+						alert("删除备注失败")
+					}
+				}
+			})
+		}
+	}
+
+	//修改线索备注列表,展现其模态窗口
+	function editRemark(id){
+		$("#remarkId").val(id)
+
+		var noteContent = $("#e"+id).html();
+
+		$("#noteContent").val(noteContent);
+
+		$('#editRemarkModal').modal("show")
+	}
+
+	/*=============================================*/
 
 	//展现交易历史列表
 	function showHistoryList(){
@@ -317,6 +452,37 @@ for (int i = 0; i<dvList.size();i++){
 
 </head>
 <body>
+
+	<!-- 修改市场活动备注的模态窗口 -->
+	<div class="modal fade" id="editRemarkModal" role="dialog">
+	<%-- 备注的id --%>
+	<input type="hidden" id="remarkId">
+
+	<div class="modal-dialog" role="document" style="width: 40%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">修改备注</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="edit-describe" class="col-sm-2 control-label">内容</label>
+						<div class="col-sm-10" style="width: 81%;">
+							<textarea class="form-control" rows="3" id="noteContent"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="updateRemarkBtn">更新</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 	<!-- 返回按钮 -->
 	<div style="position: relative; top: 35px; left: 10px;">
@@ -557,12 +723,12 @@ for (int i = 0; i<dvList.size();i++){
 	</div>
 
 	<!-- 备注 -->
-	<div style="position: relative; top: 100px; left: 40px;">
+	<div id="remarkBody" style="position: relative; top: 100px; left: 40px;">
 		<div class="page-header">
 			<h4>备注</h4>
 		</div>
 
-		<!-- 备注1 -->
+		<%--<!-- 备注1 -->
 		<div class="remarkDiv" style="height: 60px;">
 			<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">
 			<div style="position: relative; top: -40px; left: 40px;" >
@@ -588,14 +754,14 @@ for (int i = 0; i<dvList.size();i++){
 					<a class="myHref" href="javascript:void(0);"><span class="glyphicon glyphicon-remove" style="font-size: 20px; color: #E6E6E6;"></span></a>
 				</div>
 			</div>
-		</div>
+		</div>--%>
 
 		<div id="remarkDiv" style="background-color: #E6E6E6; width: 870px; height: 90px;">
 			<form role="form" style="position: relative;top: 10px; left: 10px;">
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
 					<button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-primary" id="saveRemark">保存</button>
 				</p>
 			</form>
 		</div>

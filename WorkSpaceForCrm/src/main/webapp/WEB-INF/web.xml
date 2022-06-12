@@ -104,6 +104,7 @@
         <servlet-name>TranController</servlet-name>
         <url-pattern>/workbench/tran/pageList.do</url-pattern>
         <url-pattern>/workbench/tran/add.do</url-pattern>
+        <url-pattern>/workbench/tran/detail.do</url-pattern>
         <url-pattern>/workbench/tran/save.do</url-pattern>
         <url-pattern>/workbench/tran/delete.do</url-pattern>
         <url-pattern>/workbench/tran/edit.do</url-pattern>
@@ -113,10 +114,14 @@
         <url-pattern>/workbench/tran/getActivityListByName.do</url-pattern>
         <url-pattern>/workbench/tran/getContactsListByName.do</url-pattern>
         <!--===================================================-->
-        <url-pattern>/workbench/tran/detail.do</url-pattern>
         <url-pattern>/workbench/tran/getHistoryListByTranId.do</url-pattern>
         <!--===================================================-->
         <url-pattern>/workbench/tran/changeStage.do</url-pattern>
+        <!--===================================================-->
+        <url-pattern>/workbench/tran/getRemarkListByTid.do</url-pattern>
+        <url-pattern>/workbench/tran/deleteRemark.do</url-pattern>
+        <url-pattern>/workbench/tran/updateRemark.do</url-pattern>
+        <url-pattern>/workbench/tran/saveRemark.do</url-pattern>
     </servlet-mapping>
 
 </web-app>

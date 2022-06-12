@@ -285,11 +285,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						var html = "";
 
-						html += '<div id="'+data.cr.id+'" class="remarkDiv" style="height: 60px;">';
+						html += '<div id="'+data.tRemark.id+'" class="remarkDiv" style="height: 60px;">';
 						html += '<img title="zhangsan" src="image/user-thumbnail.png" style="width: 30px; height:30px;">';
 						html += '<div style="position: relative; top: -40px; left: 40px;" >';
-						html += '<h5 id="e'+data.cr.id+'">'+data.cr.noteContent+'</h5>';
-						html += '<font color="gray">线索</font> <font color="gray">-</font> <b>${c.fullname}${c.appellation}-${c.company}</b> <small style="color: gray;" id="s'+data.cr.id+'">'+(data.cr.editFlag==0?data.cr.createTime:data.cr.editTime)+' 由'+(data.cr.editFlag==0?data.cr.createBy:data.cr.editBy)+'</small>';
+						html += '<h5 id="e'+data.tRemark.id+'">'+data.cr.noteContent+'</h5>';
+						html += '<font color="gray">线索</font> <font color="gray">-</font> <b>${c.fullname}${c.appellation}-${c.company}</b> <small style="color: gray;" id="s'+data.tRemark.id+'">'+(data.tRemark.editFlag==0?data.tRemark.createTime:data.tRemark.editTime)+' 由'+(data.tRemark.editFlag==0?data.tRemark.createBy:data.tRemark.editBy)+'</small>';
 						html += '<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">';
 						html += '<a class="myHref" href="javascript:void(0);" onclick="editRemark(\''+data.cr.id+'\')"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: red;"></span></a>';
 						html += '&nbsp;&nbsp;&nbsp;&nbsp;';

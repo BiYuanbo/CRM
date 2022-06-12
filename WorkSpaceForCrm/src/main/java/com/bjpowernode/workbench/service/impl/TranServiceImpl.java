@@ -7,9 +7,11 @@ import com.bjpowernode.vo.PaginationVO;
 import com.bjpowernode.workbench.bean.Customer;
 import com.bjpowernode.workbench.bean.Tran;
 import com.bjpowernode.workbench.bean.TranHistory;
+import com.bjpowernode.workbench.bean.TranRemark;
 import com.bjpowernode.workbench.dao.CustomerDao;
 import com.bjpowernode.workbench.dao.TranDao;
 import com.bjpowernode.workbench.dao.TranHistoryDao;
+import com.bjpowernode.workbench.dao.TranRemarkDao;
 import com.bjpowernode.workbench.service.TranService;
 
 import java.util.List;
@@ -20,6 +22,47 @@ public class TranServiceImpl implements TranService {
 
     private TranDao tranDao = SqlSessionUtil.getSqlSession().getMapper(TranDao.class);
     private TranHistoryDao tranHistoryDao = SqlSessionUtil.getSqlSession().getMapper(TranHistoryDao.class);
+    private TranRemarkDao tranRemarkDao = SqlSessionUtil.getSqlSession().getMapper(TranRemarkDao.class);
+
+    @Override
+    public boolean saveRemark(TranRemark tRemark) {
+        boolean flag = tranRemarkDao.saveRemark(tRemark);
+        return flag;
+    }
+
+    @Override
+    public boolean updateRemark(TranRemark tRemark) {
+        boolean flag = true;
+
+        int count = tranRemarkDao.updateRemark(tRemark);
+        if (count!=1){
+            flag = false;
+        }
+
+        return flag;
+    }
+
+    @Override
+    public boolean deleteRemark(String id) {
+        boolean flag = true;
+        System.out.println(id);
+
+        int count = tranRemarkDao.deleteRemark("id");
+        System.out.println(count);
+        if (count != 1){
+            flag = false;
+        }
+
+        System.out.println(flag);
+
+        return flag;
+    }
+
+    @Override
+    public List<TranRemark> getRemarkListByTid(String id) {
+        List<TranRemark> list = tranRemarkDao.getRemarkListByTid(id);
+        return list;
+    }
 
     @Override
     public boolean changeStage(Tran t) {

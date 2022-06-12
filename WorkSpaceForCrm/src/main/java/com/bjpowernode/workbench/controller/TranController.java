@@ -10,10 +10,7 @@ import com.bjpowernode.util.ServiceFactory;
 import com.bjpowernode.util.SqlSessionUtil;
 import com.bjpowernode.util.UUIDUtil;
 import com.bjpowernode.vo.PaginationVO;
-import com.bjpowernode.workbench.bean.Activity;
-import com.bjpowernode.workbench.bean.Contacts;
-import com.bjpowernode.workbench.bean.Tran;
-import com.bjpowernode.workbench.bean.TranHistory;
+import com.bjpowernode.workbench.bean.*;
 import com.bjpowernode.workbench.service.*;
 import com.bjpowernode.workbench.service.impl.ActivityServiceImpl;
 import com.bjpowernode.workbench.service.impl.ContactsServiceImpl;
@@ -63,7 +60,115 @@ public class TranController extends HttpServlet {
             getHistoryListByTranId(request,response);
         } else if ("/workbench/tran/changeStage.do".equals(path)) {
             changeStage(request,response);
+        } else if ("/workbench/tran/getRemarkListByTid.do".equals(path)) {
+            getRemarkListByTid(request,response);
+        } else if ("/workbench/tran/deleteRemark.do".equals(path)) {
+            deleteRemark(request,response);
+        } else if ("/workbench/tran/updateRemark.do".equals(path)) {
+            updateRemark(request,response);
+        } else if ("/workbench/tran/saveRemark.do".equals(path)) {
+            saveRemark(request,response);
         }
+    }
+
+    //添加备注
+    private void saveRemark(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TranService tranService = (TranService) ServiceFactory.getService(new TranServiceImpl());
+
+        String noteContent = request.getParameter("noteContent");
+        String tranId = request.getParameter("tranId");
+        //创建时间，当前系统时间
+        String createTime = DateTimeUtil.getSysTime();
+        //创建人：当前登录用户
+        String createBy = ((User)request.getSession().getAttribute("user")).getName();
+
+        TranRemark tRemark = new TranRemark();
+        tRemark.setId(UUIDUtil.getUUID());
+        tRemark.setCreateBy(createBy);
+        tRemark.setCreateTime(createTime);
+        tRemark.setNoteContent(noteContent);
+        tRemark.setTranId(tranId);
+        tRemark.setEditFlag("0");
+
+        boolean flag = tranService.saveRemark(tRemark);
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("success",flag);
+        map.put("tRemark",tRemark);
+
+        String str = JSONObject.toJSONString(map);
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter pw = response.getWriter();
+        pw.print(str);
+        pw.flush();
+        pw.close();
+    }
+
+    //更新备注
+    private void updateRemark(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TranService tranService = (TranService) ServiceFactory.getService(new TranServiceImpl());
+
+        String id = request.getParameter("id");
+        String noteContent = request.getParameter("noteContent");
+        //更新时间，当前系统时间
+        String editTime = DateTimeUtil.getSysTime();
+        //更新人：当前登录用户
+        String editBy = ((User)request.getSession().getAttribute("user")).getName();
+        String editFlag = "1";
+
+        TranRemark tRemark = new TranRemark();
+        tRemark.setId(id);
+        tRemark.setNoteContent(noteContent);
+        tRemark.setEditBy(editBy);
+        tRemark.setEditTime(editTime);
+        tRemark.setEditFlag(editFlag);
+
+        boolean flag = tranService.updateRemark(tRemark);
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("success",flag);
+        map.put("tRemark",tRemark);
+
+        String str = JSONObject.toJSONString(map);
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter pw = response.getWriter();
+        pw.print(str);
+        pw.flush();
+        pw.close();
+    }
+
+    //删除交易备注列表!!!
+    private void deleteRemark(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TranService tranService = (TranService) ServiceFactory.getService(new TranServiceImpl());
+
+        String id = request.getParameter("id");
+
+        boolean flag = tranService.deleteRemark(id);
+
+        if (flag == true){
+            String str = "{\"success\":true}";
+            response.getWriter().print(str);
+        }else {
+            String str = "{\"success\":false}";
+            response.getWriter().print(str);
+        }
+    }
+
+    //展示交易备注列表
+    private void getRemarkListByTid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TranService tranService = (TranService) ServiceFactory.getService(new TranServiceImpl());
+
+        String id = request.getParameter("tranId");
+
+        List<TranRemark> list = tranService.getRemarkListByTid(id);
+
+        String json  = JSON.toJSONString(list);
+
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter pw = response.getWriter();
+        pw.print(json);
+        pw.flush();
+        pw.close();
     }
 
     //改变阶段的操作
